@@ -6,10 +6,7 @@ The goal of this project is to develop a mobile application that helps users man
 
 ## Demo
 
-
-
-https://github.com/Marwan951/DPE_Graduation_Project/assets/95751506/a116533a-99d0-4e14-a49f-917e51a561ca
-
+https://github.com/Marwan951/DPE_Graduation_Project/assets/95751506/6569cb7d-6a22-4736-a2ec-bf48170ea291
 
 
 
