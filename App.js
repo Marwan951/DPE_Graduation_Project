@@ -9,7 +9,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // Function to fetch user data
 async function getUser() {
   try {
-    const response = await axios.get('https://api.github.com/users/1');
+    const response = await axios.get('https://api.github.com/users');
     return response.data;
   } catch (error) {
     console.error(error);
@@ -17,24 +17,26 @@ async function getUser() {
 }
 
 
-const staticUser = {
-  "email": "m@gmail.com",
-  "password": "12345",
-}
-
+// Define static user data
+const registeredUsers = [
+  { email: "m@gmail.com", password: "12345" },
+  // Add more registered users as needed
+];
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    if (email === staticUser.email && password === staticUser.password) {
+    // Check if the entered email and password match any registered user
+    const user = registeredUsers.find(user => user.email === email && user.password === password);
+
+    if (user) {
       navigation.navigate('TodoApp');
     } else {
       alert('Invalid credentials');
     }
   };
-
   return (
     <View style={loginStyles.container}>
       <StatusBar hidden />
@@ -79,16 +81,22 @@ const SignUpScreen = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     if (password === repeatPassword) {
-      // Create a new user account (you can do this with an API call in a real app)
-      staticUser.email = email;
-      staticUser.password = password;
-
-      console.log("New user: ",staticUser.email, " + ", staticUser.password)
-
-      alert('User created!');
-      navigation.navigate('Login');
+      try {
+        const response = await axios.post('https://api.github.com/users/', {
+          email,
+          password,
+        });
+        console.log(response.data.message);
+        staticUser.email = email;
+        staticUser.password = password;
+        alert('User created!');
+        navigation.navigate('Login');
+      } catch (error) {
+        console.log("there is a problem here ")
+        console.error(error);
+      }
     } else {
       alert('Passwords do not match');
     }
@@ -195,16 +203,15 @@ const TodoApp = () => {
       }))
     );
   };
-
+  
   return (
     <View style={styles.container}>
       <ScrollView style={styles.sidebar}>
         <View style={styles.userInfoContainer}>
           {userData && (
             <>
-              <Image source={{ uri: userData.avatar_url }} style={styles.userImage} />
-              <Text style={styles.userdata}>{userData.name}</Text>
-              <Text style={styles.userdata}>{userData.location}</Text>
+              <Image source={{ uri: userData[0].avatar_url }} style={styles.userImage} />
+              <Text></Text>
             </>
           )}
         </View>
