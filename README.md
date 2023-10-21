@@ -5,8 +5,7 @@
 The goal of this project is to develop a mobile application that helps users manage their tasks and to-do lists efficiently.
 
 ## Demo
-
-https://github.com/Marwan951/DPE_Graduation_Project/assets/95751506/6569cb7d-6a22-4736-a2ec-bf48170ea291
+https://github.com/Marwan951/DPE_Graduation_Project/assets/95751506/8f207738-bddb-4f02-ba67-5b013003843d
 
 
 
